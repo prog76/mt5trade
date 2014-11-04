@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mt5trade", "Mt5trade\Mt5trade.csproj", "{BDD3BE07-605F-4343-80CE-1FE78BEC2A3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDD3BE07-605F-4343-80CE-1FE78BEC2A3C}.Debug|x86.ActiveCfg = Debug|x86
+		{BDD3BE07-605F-4343-80CE-1FE78BEC2A3C}.Debug|x86.Build.0 = Debug|x86
+		{BDD3BE07-605F-4343-80CE-1FE78BEC2A3C}.Release|x86.ActiveCfg = Release|x86
+		{BDD3BE07-605F-4343-80CE-1FE78BEC2A3C}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
