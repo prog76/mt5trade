@@ -201,6 +201,11 @@ namespace Mt5trade
             SendOrder(symbol, price, volume, ENUM_ORDER_TYPE.ORDER_TYPE_SELL);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CloseAll();
+        }
+
         private void SendOrder(string symbol, double price, double volume, ENUM_ORDER_TYPE orderType)
         {
             if (apiClient.ConnectionState != Mt5ConnectionState.Connected)
@@ -238,6 +243,17 @@ namespace Mt5trade
                 : "OrderSend failed. " + MqlTradeResultToString(result);
 
             addToLog(resultMessage);
+        }
+
+        private void CloseAll()
+        {
+            if (apiClient.ConnectionState != Mt5ConnectionState.Connected)
+            {
+                MessageBox.Show("Client is not connected to MetaTrader5 terminal", "Warning");
+                return;
+            }
+
+            apiClient.OrderCloseAll();
         }
 
         private void listViewQuotes_SelectedIndexChanged(object sender, EventArgs e)

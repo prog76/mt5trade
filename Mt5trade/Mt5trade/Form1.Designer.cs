@@ -55,10 +55,13 @@
             this.textBoxSellPrice = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxFollowPrice = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOrderVolume)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -131,10 +134,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.listViewQuotes);
             this.groupBox2.Location = new System.Drawing.Point(256, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 300);
+            this.groupBox2.Size = new System.Drawing.Size(287, 339);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Connected Quotes:";
@@ -142,6 +147,8 @@
             // listViewQuotes
             // 
             this.listViewQuotes.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.listViewQuotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewQuotes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colSymbol,
             this.colBid,
@@ -151,7 +158,7 @@
             this.listViewQuotes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewQuotes.Location = new System.Drawing.Point(6, 19);
             this.listViewQuotes.Name = "listViewQuotes";
-            this.listViewQuotes.Size = new System.Drawing.Size(275, 275);
+            this.listViewQuotes.Size = new System.Drawing.Size(275, 314);
             this.listViewQuotes.TabIndex = 15;
             this.listViewQuotes.UseCompatibleStateImageBehavior = false;
             this.listViewQuotes.View = System.Windows.Forms.View.Details;
@@ -176,7 +183,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 156);
+            this.label8.Location = new System.Drawing.Point(6, 45);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 13);
             this.label8.TabIndex = 17;
@@ -184,9 +191,9 @@
             // 
             // btbBuy
             // 
-            this.btbBuy.Location = new System.Drawing.Point(8, 267);
+            this.btbBuy.Location = new System.Drawing.Point(17, 145);
             this.btbBuy.Name = "btbBuy";
-            this.btbBuy.Size = new System.Drawing.Size(116, 32);
+            this.btbBuy.Size = new System.Drawing.Size(95, 32);
             this.btbBuy.TabIndex = 19;
             this.btbBuy.Text = "Buy";
             this.btbBuy.UseVisualStyleBackColor = true;
@@ -194,9 +201,9 @@
             // 
             // btnSell
             // 
-            this.btnSell.Location = new System.Drawing.Point(130, 267);
+            this.btnSell.Location = new System.Drawing.Point(122, 145);
             this.btnSell.Name = "btnSell";
-            this.btnSell.Size = new System.Drawing.Size(116, 32);
+            this.btnSell.Size = new System.Drawing.Size(95, 32);
             this.btnSell.TabIndex = 20;
             this.btnSell.Text = "Sell";
             this.btnSell.UseVisualStyleBackColor = true;
@@ -206,7 +213,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusConnection});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 403);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 464);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(552, 22);
             this.statusStrip1.TabIndex = 21;
@@ -221,15 +228,15 @@
             // 
             // textBoxOrderSymbol
             // 
-            this.textBoxOrderSymbol.Location = new System.Drawing.Point(91, 130);
+            this.textBoxOrderSymbol.Location = new System.Drawing.Point(85, 19);
             this.textBoxOrderSymbol.Name = "textBoxOrderSymbol";
-            this.textBoxOrderSymbol.Size = new System.Drawing.Size(149, 20);
+            this.textBoxOrderSymbol.Size = new System.Drawing.Size(141, 20);
             this.textBoxOrderSymbol.TabIndex = 24;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 133);
+            this.label9.Location = new System.Drawing.Point(7, 22);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(73, 13);
             this.label9.TabIndex = 23;
@@ -243,9 +250,9 @@
             0,
             0,
             65536});
-            this.numericOrderVolume.Location = new System.Drawing.Point(92, 156);
+            this.numericOrderVolume.Location = new System.Drawing.Point(86, 45);
             this.numericOrderVolume.Name = "numericOrderVolume";
-            this.numericOrderVolume.Size = new System.Drawing.Size(146, 20);
+            this.numericOrderVolume.Size = new System.Drawing.Size(140, 20);
             this.numericOrderVolume.TabIndex = 22;
             this.numericOrderVolume.Value = new decimal(new int[] {
             1,
@@ -255,16 +262,19 @@
             // 
             // listBoxEventLog
             // 
+            this.listBoxEventLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxEventLog.FormattingEnabled = true;
-            this.listBoxEventLog.Location = new System.Drawing.Point(12, 318);
+            this.listBoxEventLog.Location = new System.Drawing.Point(9, 357);
             this.listBoxEventLog.Name = "listBoxEventLog";
-            this.listBoxEventLog.Size = new System.Drawing.Size(531, 82);
+            this.listBoxEventLog.Size = new System.Drawing.Size(531, 95);
             this.listBoxEventLog.TabIndex = 25;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 225);
+            this.label3.Location = new System.Drawing.Point(14, 103);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 26;
@@ -272,22 +282,22 @@
             // 
             // textBoxBuyPrice
             // 
-            this.textBoxBuyPrice.Location = new System.Drawing.Point(12, 241);
+            this.textBoxBuyPrice.Location = new System.Drawing.Point(11, 119);
             this.textBoxBuyPrice.Name = "textBoxBuyPrice";
-            this.textBoxBuyPrice.Size = new System.Drawing.Size(113, 20);
+            this.textBoxBuyPrice.Size = new System.Drawing.Size(105, 20);
             this.textBoxBuyPrice.TabIndex = 27;
             // 
             // textBoxSellPrice
             // 
-            this.textBoxSellPrice.Location = new System.Drawing.Point(130, 241);
+            this.textBoxSellPrice.Location = new System.Drawing.Point(119, 119);
             this.textBoxSellPrice.Name = "textBoxSellPrice";
-            this.textBoxSellPrice.Size = new System.Drawing.Size(113, 20);
+            this.textBoxSellPrice.Size = new System.Drawing.Size(107, 20);
             this.textBoxSellPrice.TabIndex = 29;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(128, 225);
+            this.label4.Location = new System.Drawing.Point(119, 103);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 13);
             this.label4.TabIndex = 28;
@@ -298,35 +308,54 @@
             this.checkBoxFollowPrice.AutoSize = true;
             this.checkBoxFollowPrice.Checked = true;
             this.checkBoxFollowPrice.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxFollowPrice.Location = new System.Drawing.Point(16, 194);
+            this.checkBoxFollowPrice.Location = new System.Drawing.Point(6, 71);
             this.checkBoxFollowPrice.Name = "checkBoxFollowPrice";
             this.checkBoxFollowPrice.Size = new System.Drawing.Size(100, 17);
             this.checkBoxFollowPrice.TabIndex = 30;
             this.checkBoxFollowPrice.Text = "Follow the price";
             this.checkBoxFollowPrice.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.btbBuy);
+            this.groupBox3.Controls.Add(this.checkBoxFollowPrice);
+            this.groupBox3.Controls.Add(this.textBoxOrderSymbol);
+            this.groupBox3.Controls.Add(this.btnSell);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.numericOrderVolume);
+            this.groupBox3.Controls.Add(this.textBoxSellPrice);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.textBoxBuyPrice);
+            this.groupBox3.Location = new System.Drawing.Point(12, 122);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(238, 229);
+            this.groupBox3.TabIndex = 31;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Trade";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(17, 187);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(200, 36);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "Close All";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 425);
-            this.Controls.Add(this.checkBoxFollowPrice);
-            this.Controls.Add(this.textBoxSellPrice);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxBuyPrice);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(552, 486);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.listBoxEventLog);
-            this.Controls.Add(this.textBoxOrderSymbol);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.numericOrderVolume);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.btnSell);
-            this.Controls.Add(this.btbBuy);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -337,6 +366,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOrderVolume)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -371,6 +402,8 @@
         private System.Windows.Forms.TextBox textBoxSellPrice;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkBoxFollowPrice;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

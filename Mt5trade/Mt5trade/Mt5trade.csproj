@@ -35,7 +35,7 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MtApi5, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MtApi5, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\MtApi5\MtApi5.dll</HintPath>
     </Reference>
