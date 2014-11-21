@@ -6,13 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MtApi5;
 
 namespace Mt5trade
 {
     public partial class Form1 : Form
     {
-        private MtApi5Client apiClient = new MtApi5Client();
+        private IApiAdapter apiClient;
 
         public Form1()
         {
@@ -29,7 +28,7 @@ namespace Mt5trade
             this.BeginInvoke(action);
         }
 
-        void apiClient_ConnectionStateChanged(object sender, Mt5ConnectionEventArgs e)
+        void apiClient_ConnectionStateChanged(object sender, ConnectionEventArgs e)
         {
             RunOnUIThread(() =>
             {
@@ -37,11 +36,11 @@ namespace Mt5trade
 
                 switch (e.Status)
                 {
-                    case Mt5ConnectionState.Connected:
+                    case ConnectionState.Connected:
                         onConnected();
                         break;
-                    case Mt5ConnectionState.Disconnected:
-                    case Mt5ConnectionState.Failed:
+                    case ConnectionState.Disconnected:
+                    case ConnectionState.Failed:
                         onDisconnected();
                         break;
                 }
@@ -87,7 +86,7 @@ namespace Mt5trade
             }));
         }
 
-        void apiClient_QuoteRemoved(object sender, Mt5QuoteEventArgs e)
+        void apiClient_QuoteRemoved(object sender, QuoteEventArgs e)
         {
             string instrument = e.Quote.Instrument;
 
@@ -97,7 +96,7 @@ namespace Mt5trade
             });
         }
 
-        void apiClient_QuoteAdded(object sender, Mt5QuoteEventArgs e)
+        void apiClient_QuoteAdded(object sender, QuoteEventArgs e)
         {
             RunOnUIThread(() =>
             {
@@ -105,7 +104,7 @@ namespace Mt5trade
             });
         }
 
-        private void addNewQuote(Mt5Quote quote)
+        private void addNewQuote(IQuote quote)
         {
             if (quote != null
                 && string.IsNullOrEmpty(quote.Instrument) == false
@@ -128,7 +127,7 @@ namespace Mt5trade
             }
         }
 
-        private void removeQuote(Mt5Quote quote)
+        private void removeQuote(IQuote quote)
         {
             if (quote != null
                 && string.IsNullOrEmpty(quote.Instrument) == false
@@ -188,7 +187,7 @@ namespace Mt5trade
             double price = 0;
             double.TryParse(textBoxBuyPrice.Text, out price);
 
-            SendOrder(symbol, price, volume, ENUM_ORDER_TYPE.ORDER_TYPE_BUY);
+            SendOrderBuy(symbol, price, volume);
         }
 
         private void btnSell_Click(object sender, EventArgs e)
@@ -198,7 +197,7 @@ namespace Mt5trade
             double price = 0;
             double.TryParse(textBoxBuyPrice.Text, out price);
 
-            SendOrder(symbol, price, volume, ENUM_ORDER_TYPE.ORDER_TYPE_SELL);
+            SendOrderSell(symbol, price, volume);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -206,9 +205,9 @@ namespace Mt5trade
             CloseAll();
         }
 
-        private void SendOrder(string symbol, double price, double volume, ENUM_ORDER_TYPE orderType)
+        private void SendOrderBuy(string symbol, double price, double volume)
         {
-            if (apiClient.ConnectionState != Mt5ConnectionState.Connected)
+            if (apiClient.ConnectionState != ConnectionState.Connected)
             {
                 MessageBox.Show("Client is not connected to MetaTrader5 terminal", "Warning");
                 return;
@@ -226,28 +225,60 @@ namespace Mt5trade
                 return;
             }
 
-            //make trader request to MT terminal
-            var request = new MqlTradeRequest { Action = ENUM_TRADE_REQUEST_ACTIONS.TRADE_ACTION_DEAL
-                , Symbol = symbol
-                , Type = orderType
-                , Price = price
-                , Volume = volume
-                , Comment = "Test Trade Request"
-            };
-            MqlTradeResult result;
-            bool retVal = apiClient.OrderSend(request, out result);
-            
+            ////make trader request to MT terminal
+            //var request = new MqlTradeRequest { Action = ENUM_TRADE_REQUEST_ACTIONS.TRADE_ACTION_DEAL
+            //    , Symbol = symbol
+            //    , Type = orderType
+            //    , Price = price
+            //    , Volume = volume
+            //    , Comment = "Test Trade Request"
+            //};
+            //MqlTradeResult result;
+
+
+            bool retVal = apiClient.OrderBuy(symbol, price, volume);
+
             //TODO: use trade result
-            string resultMessage = (retVal == true) 
-                ? "OrderSend success. " + MqlTradeResultToString(result)
-                : "OrderSend failed. " + MqlTradeResultToString(result);
+            string resultMessage = (retVal == true)
+                ? "OrderSend success. "
+                : "OrderSend failed. ";
+
+            addToLog(resultMessage);
+        }
+
+        private void SendOrderSell(string symbol, double price, double volume)
+        {
+            if (apiClient.ConnectionState != ConnectionState.Connected)
+            {
+                MessageBox.Show("Client is not connected to MetaTrader5 terminal", "Warning");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(symbol))
+            {
+                MessageBox.Show("Select symbol for trade", "Warning");
+                return;
+            }
+
+            if (volume <= 0)
+            {
+                MessageBox.Show("Volume can't be less or equal zero", "Warning");
+                return;
+            }
+
+            bool retVal = apiClient.OrderSell(symbol, price, volume);
+
+            //TODO: use trade result
+            string resultMessage = (retVal == true)
+                ? "OrderSend success. "
+                : "OrderSend failed. ";
 
             addToLog(resultMessage);
         }
 
         private void CloseAll()
         {
-            if (apiClient.ConnectionState != Mt5ConnectionState.Connected)
+            if (apiClient.ConnectionState != ConnectionState.Connected)
             {
                 MessageBox.Show("Client is not connected to MetaTrader5 terminal", "Warning");
                 return;
@@ -264,20 +295,6 @@ namespace Mt5trade
                 textBoxBuyPrice.Text = listViewQuotes.SelectedItems[0].SubItems[2].Text;
                 textBoxSellPrice.Text = listViewQuotes.SelectedItems[0].SubItems[1].Text;
             }
-        }
-
-        private static string MqlTradeResultToString(MqlTradeResult result)
-        {
-            return result != null ?
-                "Retcode = " + result.Retcode + ";"
-                + " Comment = " + result.Comment + ";"
-                + " Order = " + result.Order + ";"
-                + " Volume = " + result.Volume + ";"
-                + " Price = " + result.Price + ";"
-                + " Deal = " + result.Deal + ";"
-                + " Request_id = " + result.Request_id + ";"
-                + " Bid = " + result.Bid + ";"
-                + " Ask = " + result.Ask + ";" : string.Empty;
         }
 
         private void addToLog(string msg)
