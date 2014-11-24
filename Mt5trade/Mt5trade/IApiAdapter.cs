@@ -5,23 +5,23 @@ using System.Text;
 
 namespace Mt5trade
 {
+    public delegate void QuoteHandler(object sender, string symbol, double bid, double ask);
+
     interface IApiAdapter
     {
-        public delegate void QuoteHandler(object sender, string symbol, double bid, double ask);
+        void BeginConnect(string host, int port);
+        void BeginConnect(int port);
+        void BeginDisconnect();
+        ulong OrderBuy(string symbol, double price, double volume);
+        ulong OrderSell(string symbol, double price, double volume);
+        bool OrderCloseAll();
+        IEnumerable<IQuote> GetQuotes();
 
-        public void BeginConnect(string host, int port);
-        public void BeginConnect(int port);
-        public void BeginDisconnect();
-        public bool OrderBuy(string symbol, double price, double volume);
-        public bool OrderSell(string symbol, double price, double volume);
-        public bool OrderCloseAll();
-        public IEnumerable<IQuote> GetQuotes();
+        ConnectionState ConnectionState { get; }
 
-        public ConnectionState ConnectionState { get; }
-
-        public event QuoteHandler QuoteUpdated;
-        public event EventHandler<QuoteEventArgs> QuoteAdded;
-        public event EventHandler<QuoteEventArgs> QuoteRemoved;
-        public event EventHandler<ConnectionEventArgs> ConnectionStateChanged;
+        event QuoteHandler QuoteUpdated;
+        event EventHandler<QuoteEventArgs> QuoteAdded;
+        event EventHandler<QuoteEventArgs> QuoteRemoved;
+        event EventHandler<ConnectionEventArgs> ConnectionStateChanged;
     }
 }

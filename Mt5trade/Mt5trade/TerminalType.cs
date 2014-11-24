@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Mt5trade
 {
-    interface IQuote
+    enum TerminalType
     {
-        string Instrument { get; }
-        double Bid { get; }
-        double Ask { get; }
+        MT4,
+        MT5
     }
 }

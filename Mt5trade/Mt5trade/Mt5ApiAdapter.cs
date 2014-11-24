@@ -74,32 +74,69 @@ namespace Mt5trade
 
         public void BeginDisconnect()
         {
-            throw new NotImplementedException();
+            apiClient.BeginDisconnect();
         }
 
-        public bool OrderBuy(string symbol, double price, double volume)
+        public ulong OrderBuy(string symbol, double price, double volume)
         {
-            throw new NotImplementedException();
+            return SendOrder(symbol, price, volume, ENUM_ORDER_TYPE.ORDER_TYPE_BUY);
         }
 
-        public bool OrderSell(string symbol, double price, double volume)
+        public ulong OrderSell(string symbol, double price, double volume)
         {
-            throw new NotImplementedException();
+            return SendOrder(symbol, price, volume, ENUM_ORDER_TYPE.ORDER_TYPE_SELL);
         }
 
         public bool OrderCloseAll()
         {
-            throw new NotImplementedException();
+            return apiClient.OrderCloseAll();
         }
 
         public IEnumerable<IQuote> GetQuotes()
         {
-            throw new NotImplementedException();
+            List<IQuote> quotes = null;
+            var mtQuotes = apiClient.GetQuotes();
+            if (mtQuotes != null)
+            {
+                quotes = new List<IQuote>();
+                foreach (var mtQuote in mtQuotes)
+                {
+                    quotes.Add(new Mt5QuoteAdapter(mtQuote));
+                }
+            }
+
+            return quotes;
         }
 
-        public event IApiAdapter.QuoteHandler QuoteUpdated;
+        public ConnectionState ConnectionState 
+        {
+            get 
+            { 
+                return ConvertConnectionState(apiClient.ConnectionState);
+            } 
+        }
+
+        public event QuoteHandler QuoteUpdated;
         public event EventHandler<QuoteEventArgs> QuoteAdded;
         public event EventHandler<QuoteEventArgs> QuoteRemoved;
         public event EventHandler<ConnectionEventArgs> ConnectionStateChanged;
+
+        private ulong SendOrder(string symbol, double price, double volume, ENUM_ORDER_TYPE type)
+        {
+            //make trader request to MT terminal
+            var request = new MqlTradeRequest
+            {
+                Action = ENUM_TRADE_REQUEST_ACTIONS.TRADE_ACTION_DEAL, 
+                Symbol = symbol,
+                Type = type, 
+                Price = price, 
+                Volume = volume, 
+                Comment = "Trade Request from Mt5Trade"
+            };
+            MqlTradeResult result;
+
+            bool sended = apiClient.OrderSend(request, out result);
+            return (sended == true) ? result.Order : 0;
+        }
     }
 }

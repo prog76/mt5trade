@@ -57,6 +57,8 @@
             this.checkBoxFollowPrice = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -66,6 +68,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.buttonConnect);
             this.groupBox1.Controls.Add(this.textBoxServerName);
             this.groupBox1.Controls.Add(this.textBoxPort);
@@ -74,14 +78,14 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(238, 104);
+            this.groupBox1.Size = new System.Drawing.Size(238, 130);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connection";
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(41, 71);
+            this.buttonConnect.Location = new System.Drawing.Point(41, 100);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(75, 23);
             this.buttonConnect.TabIndex = 4;
@@ -91,14 +95,14 @@
             // 
             // textBoxServerName
             // 
-            this.textBoxServerName.Location = new System.Drawing.Point(70, 19);
+            this.textBoxServerName.Location = new System.Drawing.Point(70, 48);
             this.textBoxServerName.Name = "textBoxServerName";
             this.textBoxServerName.Size = new System.Drawing.Size(156, 20);
             this.textBoxServerName.TabIndex = 0;
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(70, 45);
+            this.textBoxPort.Location = new System.Drawing.Point(70, 74);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(156, 20);
             this.textBoxPort.TabIndex = 1;
@@ -106,7 +110,7 @@
             // 
             // buttonDisconnect
             // 
-            this.buttonDisconnect.Location = new System.Drawing.Point(122, 71);
+            this.buttonDisconnect.Location = new System.Drawing.Point(122, 100);
             this.buttonDisconnect.Name = "buttonDisconnect";
             this.buttonDisconnect.Size = new System.Drawing.Size(75, 23);
             this.buttonDisconnect.TabIndex = 3;
@@ -117,7 +121,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 48);
+            this.label2.Location = new System.Drawing.Point(14, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 6;
@@ -126,7 +130,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 22);
+            this.label1.Location = new System.Drawing.Point(14, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 5;
@@ -213,7 +217,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusConnection});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 464);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 506);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(552, 22);
             this.statusStrip1.TabIndex = 21;
@@ -266,9 +270,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxEventLog.FormattingEnabled = true;
-            this.listBoxEventLog.Location = new System.Drawing.Point(9, 357);
+            this.listBoxEventLog.Location = new System.Drawing.Point(9, 383);
             this.listBoxEventLog.Name = "listBoxEventLog";
-            this.listBoxEventLog.Size = new System.Drawing.Size(531, 95);
+            this.listBoxEventLog.Size = new System.Drawing.Size(531, 108);
             this.listBoxEventLog.TabIndex = 25;
             // 
             // label3
@@ -329,7 +333,7 @@
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.textBoxBuyPrice);
-            this.groupBox3.Location = new System.Drawing.Point(12, 122);
+            this.groupBox3.Location = new System.Drawing.Point(12, 148);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(238, 229);
             this.groupBox3.TabIndex = 31;
@@ -346,11 +350,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "MT4",
+            "MT5"});
+            this.comboBox1.Location = new System.Drawing.Point(105, 21);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 24);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Terminal Type";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 486);
+            this.ClientSize = new System.Drawing.Size(552, 528);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.listBoxEventLog);
             this.Controls.Add(this.statusStrip1);
@@ -404,6 +429,8 @@
         private System.Windows.Forms.CheckBox checkBoxFollowPrice;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
