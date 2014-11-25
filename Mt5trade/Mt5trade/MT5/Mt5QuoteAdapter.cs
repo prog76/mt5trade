@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using MtApi5;
 
-namespace Mt5trade
+namespace Mt5trade.MT5
 {
     class Mt5QuoteAdapter : IQuote
     {

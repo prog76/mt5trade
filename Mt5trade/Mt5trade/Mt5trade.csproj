@@ -35,6 +35,10 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MtApi, Version=1.0.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MtApi\MtApi.dll</HintPath>
+    </Reference>
     <Reference Include="MtApi5, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\MtApi5\MtApi5.dll</HintPath>
@@ -62,8 +66,10 @@
     </Compile>
     <Compile Include="IApiAdapter.cs" />
     <Compile Include="IQuote.cs" />
-    <Compile Include="Mt5ApiAdapter.cs" />
-    <Compile Include="Mt5QuoteAdapter.cs" />
+    <Compile Include="MT4\Mt4ApiAdapter.cs" />
+    <Compile Include="MT4\Mt4QuoteAdapter.cs" />
+    <Compile Include="MT5\Mt5ApiAdapter.cs" />
+    <Compile Include="MT5\Mt5QuoteAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuoteEventArgs.cs" />

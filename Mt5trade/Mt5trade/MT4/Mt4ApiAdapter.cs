@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MtApi5;
+using MtApi;
+using System.Drawing;
 
-namespace Mt5trade
+namespace Mt5trade.MT4
 {
-    class Mt5ApiAdapter: IApiAdapter
+    class Mt4ApiAdapter: IApiAdapter
     {
-        private readonly MtApi5Client apiClient = new MtApi5Client();
+        private readonly MtApiClient apiClient = new MtApiClient();
 
-        public Mt5ApiAdapter()
+        public Mt4ApiAdapter()
         {
             apiClient.QuoteAdded += apiClient_QuoteAdded;
             apiClient.QuoteRemoved += apiClient_QuoteRemoved;
@@ -19,7 +20,7 @@ namespace Mt5trade
 
         }
 
-        void apiClient_ConnectionStateChanged(object sender, Mt5ConnectionEventArgs e)
+        void apiClient_ConnectionStateChanged(object sender, MtConnectionEventArgs e)
         {
             ConnectionStateChanged.FireEvent(this
                 , new ConnectionEventArgs(ConvertConnectionState(e.Status), e.ConnectionMessage));
@@ -33,29 +34,29 @@ namespace Mt5trade
             }
         }
 
-        void apiClient_QuoteRemoved(object sender, Mt5QuoteEventArgs e)
+        void apiClient_QuoteRemoved(object sender, MtQuoteEventArgs e)
         {
-            Mt5QuoteAdapter quoteAdapter = new Mt5QuoteAdapter(e.Quote);
+            Mt4QuoteAdapter quoteAdapter = new Mt4QuoteAdapter(e.Quote);
             QuoteRemoved.FireEvent(this, new QuoteEventArgs(quoteAdapter));
         }
 
-        void apiClient_QuoteAdded(object sender, Mt5QuoteEventArgs e)
+        void apiClient_QuoteAdded(object sender, MtQuoteEventArgs e)
         {
-            Mt5QuoteAdapter quoteAdapter = new Mt5QuoteAdapter(e.Quote);
+            Mt4QuoteAdapter quoteAdapter = new Mt4QuoteAdapter(e.Quote);
             QuoteAdded.FireEvent(this, new QuoteEventArgs(quoteAdapter));
         }
 
-        private static ConnectionState ConvertConnectionState(Mt5ConnectionState state)
+        private static ConnectionState ConvertConnectionState(MtConnectionState state)
         {
             switch (state)
             {
-                case Mt5ConnectionState.Connected:
+                case MtConnectionState.Connected:
                     return ConnectionState.Connected;
-                case Mt5ConnectionState.Connecting:
+                case MtConnectionState.Connecting:
                     return ConnectionState.Connecting;
-                case Mt5ConnectionState.Disconnected:
+                case MtConnectionState.Disconnected:
                     return ConnectionState.Disconnected;
-                case Mt5ConnectionState.Failed:
+                case MtConnectionState.Failed:
                     return ConnectionState.Failed;
             }
 
@@ -79,12 +80,12 @@ namespace Mt5trade
 
         public ulong OrderBuy(string symbol, double price, double volume)
         {
-            return SendOrder(symbol, price, volume, ENUM_ORDER_TYPE.ORDER_TYPE_BUY);
+            return SendOrder(symbol, volume, price, TradeOperation.OP_BUY);
         }
 
         public ulong OrderSell(string symbol, double price, double volume)
         {
-            return SendOrder(symbol, price, volume, ENUM_ORDER_TYPE.ORDER_TYPE_SELL);
+            return SendOrder(symbol, volume, price, TradeOperation.OP_SELL);
         }
 
         public bool OrderCloseAll()
@@ -101,7 +102,7 @@ namespace Mt5trade
                 quotes = new List<IQuote>();
                 foreach (var mtQuote in mtQuotes)
                 {
-                    quotes.Add(new Mt5QuoteAdapter(mtQuote));
+                    quotes.Add(new Mt4QuoteAdapter(mtQuote));
                 }
             }
 
@@ -121,22 +122,10 @@ namespace Mt5trade
         public event EventHandler<QuoteEventArgs> QuoteRemoved;
         public event EventHandler<ConnectionEventArgs> ConnectionStateChanged;
 
-        private ulong SendOrder(string symbol, double price, double volume, ENUM_ORDER_TYPE type)
+        private ulong SendOrder(string symbol, double volume, double price, TradeOperation command)
         {
-            //make trader request to MT terminal
-            var request = new MqlTradeRequest
-            {
-                Action = ENUM_TRADE_REQUEST_ACTIONS.TRADE_ACTION_DEAL, 
-                Symbol = symbol,
-                Type = type, 
-                Price = price, 
-                Volume = volume, 
-                Comment = "Trade Request from Mt5Trade"
-            };
-            MqlTradeResult result;
-
-            bool sended = apiClient.OrderSend(request, out result);
-            return (sended == true) ? result.Order : 0;
+            int orderId = apiClient.OrderSend(symbol, command, volume, price, 10, 0, 0, "Trade Request from Mt5Trade", 0, DateTime.Now, Color.Green);
+            return orderId > 0 ? (ulong) orderId : 0;
         }
     }
 }

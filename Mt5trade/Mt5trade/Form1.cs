@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Mt5trade.MT5;
 
 namespace Mt5trade
 {
@@ -25,7 +26,7 @@ namespace Mt5trade
             switch (terminalType)
             {
                 case TerminalType.MT4:
-                    return null;
+                    return new MT4.Mt4ApiAdapter();
                 case TerminalType.MT5:
                     return new Mt5ApiAdapter();
                 default:
@@ -57,7 +58,7 @@ namespace Mt5trade
 
         private void BeginConnect(TerminalType terminalType, string server, int port)
         {
-            apiClient = CreateApi(TerminalType.MT5);
+            apiClient = CreateApi(terminalType);
             
             if (apiClient != null)
             {
