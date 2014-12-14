@@ -35,11 +35,11 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MtApi, Version=1.0.17.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MtApi, Version=1.0.18.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\MtApi\MtApi.dll</HintPath>
     </Reference>
-    <Reference Include="MtApi5, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MtApi5, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\MtApi5\MtApi5.dll</HintPath>
     </Reference>
